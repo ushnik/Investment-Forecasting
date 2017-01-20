@@ -1,0 +1,423 @@
+---
+title: "Oil vs Gold vs S&P500"
+author: "Ushnik"
+date: "November 18, 2016"
+output: html_document
+---
+
+#Data
+Loading data & exploration
+  
+```{r}
+gold <- read.csv("C:/Users/Ushnik/Downloads/Gold (2).csv", header=TRUE, stringsAsFactors=FALSE)
+View(gold)
+names(gold)
+str(gold)
+head(gold)
+summary(gold)
+Date<-as.Date(gold$Date, "%m/%d/%Y")
+gold$Date<-Date
+str(gold)
+View(gold)
+
+oil <- read.csv("C:/Users/Ushnik/Downloads/Oil (2).csv", header=TRUE, stringsAsFactors=FALSE)
+View(oil)
+names(oil)
+str(oil)
+head(oil)
+summary(oil)
+DATE<-as.Date(oil$DATE, "%m/%d/%Y")
+oil$DATE<-DATE
+str(oil)
+View(oil)
+```
+
+
+The two data set has 322 observations with columns representing Date and Monthly Values of Gold and Oil in USD respectively.
+
+# Time Series Objects
+We then store both the data sets in two time series objects in R. To store the data in a time series object, we use the `ts()` function in R.  
+
+```{r}
+ts.gold<-ts(gold$Value,  start=c(1990,1), frequency = 12) 
+ts.gold
+ts.oil<-ts(oil$VALUE, start=c(1990,1), frequency = 12) 
+ts.oil
+```
+
+# Time Series Plot
+We then plot the price changes of Gold and Oil from 1990 until 2016
+
+```{r}
+plot.ts(ts.gold, ylab= "Values of Gold")
+plot.ts(ts.oil, ylab= "Values of Oil")
+```
+
+# Correlation between Gold and Oil
+
+```{r}
+
+par(mar=c(2,8,4,8)+0.1)
+plot(ts.gold, col="blue", ylim=c(0,2000), axes=F, ylab="")
+box()
+axis(2, col="blue")
+mtext("Value of Gold", side=2, line=3)
+par(new=T)
+plot(ts.oil, col="red", ylim=c(0,250), axes=F, ylab="")
+axis(4, col="red")
+mtext("Value of Oil", side=4, line=3)
+axis(1, xlim=c(1990,2016))
+mtext("Gold vs Oil values from 1990 to 2016",  line=3)
+
+cor(ts.gold, ts.oil)
+```
+
+Therefore from the comparison above, we can see that there is a general upward trend for both, but Gold has a steeper rise than that of Oil. There is an overall positive correlation but there seems to be an inverse relationship of the value trends at times. For instance, in 2002 and 2009 Gold seems to have a decreasing value whereas Oil has an increasing value. 
+
+#S&P500 data
+Loading and exploring
+
+```{r}
+sp <- read.csv("C:/Users/Ushnik/Downloads/S&P500.csv", header=TRUE, stringsAsFactors=FALSE)
+View(sp)
+names(sp)
+str(sp)
+head(sp)
+summary(sp)
+Date<-as.Date(sp$Date, "%m/%d/%Y")
+sp$Date<-Date
+str(sp)
+View(sp)
+```
+
+# Time Series Objects
+We then store the S&P500 data set in a time series object in R. To store the data in a time series object, we use the `ts()` function in R.  
+
+```{r}
+ts.sp<-ts(sp$Open,  start=c(1990,1), frequency = 12) 
+ts.sp
+```
+
+# Time Series Plot
+We then plot the S&P500 values from 1990 until 2016
+
+```{r}
+plot.ts(ts.sp, ylab= "S&P500 Values")
+```
+
+
+#Decomposing, Holt Smoothening and forcasting for Gold, Oil and S&P500
+
+```{r}
+library(forecast)
+ts.gold.d <- decompose(ts.gold)
+plot(ts.gold.d)
+
+ts.gold.holt <- HoltWinters(ts.gold, gamma=TRUE)
+plot(ts.gold.holt, ylab="Gold Values", xlab="Year")
+ts.gold.forecasts <- forecast.HoltWinters(ts.gold.holt, h=14)  
+ts.gold.forecasts
+```
+
+We would therefore want to invest in gold in April 2017 when the point forecast is $1246.917 and sell gold in Sep 2017 at $1268.686. The forecast above lies within a 80% and 95% confidence level intervals as indicated above.
+
+We plot the forecast of gold by usinn the `plot.forecast` function:
+
+```{r}
+plot.forecast(ts.gold.forecasts, ylab="Gold Values", xlab="Year")
+```
+
+
+```{r}
+ts.oil.d <- decompose(ts.oil)
+plot(ts.oil.d)
+
+ts.oil.holt <- HoltWinters(ts.oil, gamma=TRUE)
+plot(ts.oil.holt, ylab="Oil Values", xlab="Year")
+ts.oil.forecasts <- forecast.HoltWinters(ts.oil.holt, h=14)  
+ts.oil.forecasts
+```
+
+We would therefore want to invest in oil in Jan 2017 when the point forecast is $46.78 and sell oil in Apr 2017 at $60.26. The forecast above lies within a 80% and 95% confidence level intervals as indicated above.
+
+We plot the forecast of gold by usinn the `plot.forecast` function:
+
+```{r}
+plot.forecast(ts.oil.forecasts, ylab="Oil Values", xlab="Year")
+```
+
+```{r}
+ts.sp.d <- decompose(ts.sp)
+plot(ts.sp.d)
+
+ts.sp.holt <- HoltWinters(ts.sp, gamma=TRUE)
+plot(ts.sp.holt, ylab="S&P500 Values", xlab="Year")
+ts.sp.forecasts <- forecast.HoltWinters(ts.sp.holt, h=14) 
+ts.sp.forecasts
+```
+
+We would therefore want to invest in S&P500 stocks in Jan 2017 when the point forecast is $2181.59 and sell the stocks in Sep 2017 at $2220.8. The forecast above lies within a 80% and 95% confidence level intervals as indicated above.
+
+We plot the forecast of gold by usinn the `plot.forecast` function:
+
+```{r}
+plot.forecast(ts.sp.forecasts, ylab="S&P500 Values", xlab="Year")
+```
+
+
+#Arima model for Gold
+
+We use the Arima model to further consolidate our Forecast Models achieved as above. We use the `auto.arima` function to predict the (p,d,q) variables and use the returned values for an optimum forecast model.
+
+```{r}
+auto.arima(ts.gold)
+gold.arima<-arima(ts.gold, c(0,1,1))   
+gold.arima.forecasts <- forecast.Arima(gold.arima, h=14)
+gold.arima.forecasts
+plot(gold.arima.forecasts)
+
+```
+
+The ??forecast errors?? are calculated as the observed values minus predicted values, for each time point. We can only calculate the forecast errors for the time period covered by our original time series, which is 1990 to 2016 for the exchange rate data. As mentioned above, one measure of the accuracy of the predictive model is the sum-of-squared-errors (SSE) for the in-sample forecast errors.
+
+The in-sample forecast errors are stored in the named element ??residuals?? of the list variable returned by `forecast.HoltWinters()`. If the predictive model cannot be improved upon, there should be no correlations between forecast errors for successive predictions. In other words, if there are correlations between forecast errors for successive predictions, it is likely that the simple exponential smoothing forecasts could be improved upon by another forecasting technique.
+
+To figure out whether this is the case, we can obtain a correlogram of the in-sample forecast errors for lags 1-20. We can calculate a correlogram of the forecast errors using the `acf()` function in R. To specify the maximum lag that we want to look at, we use the `lag.max` parameter in `acf()`.
+
+For example, to calculate a correlogram of the forecast errors for the values of Gold for lags 1-20, we type:
+
+```{r}
+acf(gold.arima.forecasts$residuals, lag.max=20)
+```
+
+We can see from the correlogram that the autocorrelation at lag 4 and lag 9 are outside the significance bounds and lag 7 is just touching the significance bounds. To test whether there is significant evidence for non-zero correlations at lags 1-20, we can carry out a Ljung-Box test. This can be done in R using the `Box.test()` function. The maximum lag that we want to look at is specified using the ??lag?? parameter in the `Box.test()` function. For example, to test whether there are non-zero autocorrelations at lags 1-20, for the in-sample forecast errors for exchange rate data, we type:
+
+```{r}
+Box.test(gold.arima.forecasts$residuals, lag=20, type="Ljung-Box")
+```
+
+Here the Ljung-Box test statistic is 32.2, and the p-value is 0.04, so there is little evidence of non-zero autocorrelations in the in-sample forecast errors at lags 1-20.
+
+To be sure that the predictive model cannot be improved upon, it is also a good idea to check whether the forecast errors are normally distributed with mean zero and constant variance. To check whether the forecast errors have constant variance, we can make a time plot of the in-sample forecast errors:
+
+```{r}
+
+plot.ts(gold.arima.forecasts$residuals)            # make time plot of forecast errors
+```
+
+The plot shows that the in-sample forecast errors do not seem to have a constant variance over time, although the size of the fluctuations in the start of the time series may be slightly less than that at later dates.
+
+We therefore difference the given forecast once to obtain constant variance over time. This is also supported by the `auto.arima` function predicting a integrated variable "d" as 1.
+
+```{r}
+gold.diff <- diff(gold.arima.forecasts$residuals, differences = 1)
+plot.ts(gold.diff)
+```
+
+To check whether the forecast errors are normally distributed with mean zero, we can plot a histogram of the forecast errors, with an overlaid normal curve that has mean zero and the same standard deviation as the distribution of forecast errors. To do this, we can define an R function ??plotForecastErrors()??, below:
+
+```{r}
+PlotForecastErrors <- function(forecasterrors)
+{
+  mybinsize <- IQR(forecasterrors)/4
+  mysd <- sd(forecasterrors)
+  mymin <- min(forecasterrors)-mysd*5
+  mymax <- max(forecasterrors)+mysd*5
+  mynorm <- rnorm(10000,mean=0,sd=mysd)
+  mymin2 <- min(mynorm)
+  mymax2 <- max(mynorm)
+  if (mymin2<mymin)
+  {
+    mymin<-mymin2
+  }
+  if (mymax2>mymax)
+  {
+    mymax<-mymax2
+  }
+  mybins <- seq(mymin,mymax,mybinsize)
+  hist(forecasterrors, col="red", freq=FALSE, breaks=mybins)
+  myhist <- hist(mynorm, plot=FALSE, breaks=mybins)
+  points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)
+}
+
+PlotForecastErrors(gold.arima.forecasts$residuals)
+```
+
+The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+The Ljung-Box test showed that there is little evidence of non-zero autocorrelations in the in-sample forecast errors, and the distribution of forecast errors seems to be normally distributed with mean zero. This suggests that the simple exponential smoothing method provides an adequate predictive model for the exchange rates, which probably cannot be improved upon. Furthermore, the assumptions that the 80% and 95% predictions intervals were based upon (that there are no autocorrelations in the forecast errors, and the forecast errors are normally distributed with mean zero and constant variance) are probably valid.
+
+#Arima model forecast for Oil
+
+We carry out the same procedure to achieve forecast values using the Arima model and check for forecast errors.
+
+```{r}
+
+auto.arima(ts.oil)
+oil.arima<-arima(ts.oil, c(1,1,0))   
+oil.arima.forecasts <- forecast.Arima(oil.arima, h=14)
+oil.arima.forecasts
+plot(oil.arima.forecasts)
+
+acf(oil.arima.forecasts$residuals, lag.max=20)
+Box.test(oil.arima.forecasts$residuals, lag=20, type="Ljung-Box")
+
+plot.ts(oil.arima.forecasts$residuals)            # make time plot of forecast errors
+
+oil.diff <- diff(oil.arima.forecasts$residuals, differences = 1)
+plot.ts(oil.diff)
+
+PlotForecastErrors(oil.arima.forecasts$residuals)
+mean(oil.arima.forecasts$residuals)
+```
+
+The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+The Ljung-Box test showed that there is little evidence of non-zero autocorrelations in the in-sample forecast errors, and the distribution of forecast errors seems to be normally distributed with mean zero. This suggests that the simple exponential smoothing method provides an adequate predictive model for the exchange rates, which probably cannot be improved upon. Furthermore, the assumptions that the 80% and 95% predictions intervals were based upon (that there are no autocorrelations in the forecast errors, and the forecast errors are normally distributed with mean zero and constant variance) are probably valid.
+
+#Arima model forecast for S&P500
+
+Similarly, we forecast values for S&P500 and check for forecast errors
+
+```{r}
+auto.arima(ts.sp)
+sp.arima<-arima(ts.sp, c(0,1,0))   
+sp.arima.forecasts <- forecast.Arima(sp.arima, h=14)
+sp.arima.forecasts
+plot(sp.arima.forecasts)
+
+acf(sp.arima.forecasts$residuals, lag.max=20)
+Box.test(sp.arima.forecasts$residuals, lag=20, type="Ljung-Box")
+
+plot.ts(sp.arima.forecasts$residuals)            # make time plot of forecast errors
+
+sp.diff <- diff(sp.arima.forecasts$residuals, differences = 1)
+plot.ts(sp.diff)
+
+PlotForecastErrors(sp.arima.forecasts$residuals)
+```
+
+The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+The Ljung-Box test showed that there is little evidence of non-zero autocorrelations in the in-sample forecast errors, and the distribution of forecast errors seems to be normally distributed with mean zero. This suggests that the simple exponential smoothing method provides an adequate predictive model for the exchange rates, which probably cannot be improved upon. Furthermore, the assumptions that the 80% and 95% predictions intervals were based upon (that there are no autocorrelations in the forecast errors, and the forecast errors are normally distributed with mean zero and constant variance) are probably valid.
+
+#Interpretations:
+
+### 1. Gold 
+
+From the forecast plots, we see that investing in Gold in April 2017 ($1246.917) would yield a profit of 1.75% when sold in Sep 2017($1268.686). 
+
+These values lie at a confidence level of:
+
+####Buying price:
+
+`Holt's Forecasting`:
+
+80%: low of $1137.165; high of $1356.669                                            
+95%: low of $1079.0658; high of $1414.768
+
+`Arima model forecasting`:
+
+80%: low of $1141.688; high of $1368.057                                   
+95%: low of $1081.7717; high of $1427.974
+
+####Selling Price:
+   
+`Holt's Forecasting`:
+
+80%: low of $1104.847; high of $1432.524                                           
+95%: low of $1018.1161; high of $1519.255
+
+`Arima model forecasting`:
+
+80%: low of $1085.813; high of $1423.932                             
+95%: low of $996.3182; high of $1513.427
+
+    
+### 2. Oil
+
+Similarly, we see that investing in Oil in January 2017 ($46.78) would yield a profit of 28.8% when sold in Apr 2017($60.26)
+
+These values lie at a confidence level of:
+
+####Buying price:
+  
+`Holt's Forecasting:`
+
+80%: low of $35.61926; high of $57.95543                                       
+95%: low of $29.707230; high of $63.86746
+
+`Arima model forecasting:`
+    
+80%: low of $40.15346; high of $65.14182                                    
+95%: low of $33.539437; high of $71.75584
+
+
+
+####Selling Price:
+      
+`Holt's Forecasting`:
+
+80%: low of $45.11018; high of $75.41065                                   
+95%: low of $37.090134; high of $83.43070
+
+`Arima model forecasting`:                                     
+    
+80%: low of $33.06107; high of $72.60054                               
+95%: low of $22.595600; high of $83.06601
+
+
+### 3. S&P500
+
+We also see that investing in S&P500 in January 2017 ($2181.59) would yield a profit of 1.8% when sold in Sep 2017($2220.808)
+
+####Buying Price:
+   
+`Holt's Forecasting`:                        
+
+80%: low of $2076.831; high of $2286.365                       
+95%: low of $2021.370; high of $2341.826
+  
+`Arima model forecasting`:
+    
+80%: low of $2058.888; high of $2269.772                
+95%: low of $2003.07; high of $2325.590
+
+
+
+####Selling Price:
+         
+`Holt's Forecasting`:      
+
+80%: low of $2022.206; high of $2419.409                 
+95%: low of $1917.072; high of $2524.543
+
+`Arima model forecasting`:
+      
+80%: low of $1962.424; high of $2366.236               
+95%: low of $1855.541; high of $2473.119                  
+
+
+
+
+####Conclusion:
+We use the arima model confidnce bands as a primary variation indicator as it removes the trend and seasonal components and works with the irregular component (noise) to model the forecasts. This, I feel, is more important in investing activities since it is safer to know what the maximum loss might be, incase of irregularities. 
+
+
+Therefore, within 80% and 95% confidence levels as mentioned above we should look to invest in Oil in January 2017 and sell our stocks in April 2017 to earn a profit of 28.8% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

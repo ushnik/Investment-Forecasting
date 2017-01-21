@@ -1,6 +1,6 @@
 ##Oil vs Gold vs S&P500
 
-#####This is an analysis of 16 years of data of Oil, Gold and S&P500 stocks. The Time series forecasting model is used to predict future values based on previously observed values, and evaluate investment decisions and ROIs. 
+####This is an analysis of 16 years of data of Oil, Gold and S&P500 stocks. The Time series forecasting model is used to predict future values based on previously observed values, and evaluate investment decisions and ROIs. 
 
 Loading data & exploration
 

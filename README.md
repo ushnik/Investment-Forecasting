@@ -438,7 +438,7 @@ We then plot the S&P500 values from 1990 until 2016
 plot.ts(ts.sp, ylab= "S&P500 Values")
 ```
 
-![]https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-7-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-7-1.png)
 
 Decomposing, Holt Smoothening and forcasting for Gold, Oil and S&P500
 =====================================================================

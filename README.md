@@ -250,13 +250,13 @@ We then plot the price changes of Gold and Oil from 1990 until 2016
 plot.ts(ts.gold, ylab= "Values of Gold")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-3-1.png?raw=true)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ``` r
 plot.ts(ts.oil, ylab= "Values of Oil")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-3-2.png)
 
 Correlation between Gold and Oil
 ================================
@@ -275,7 +275,7 @@ axis(1, xlim=c(1990,2016))
 mtext("Gold vs Oil values from 1990 to 2016",  line=3)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-4-1.png)
 
 ``` r
 cor(ts.gold, ts.oil)
@@ -438,7 +438,7 @@ We then plot the S&P500 values from 1990 until 2016
 plot.ts(ts.sp, ylab= "S&P500 Values")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![]https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-7-1.png)
 
 Decomposing, Holt Smoothening and forcasting for Gold, Oil and S&P500
 =====================================================================
@@ -478,14 +478,14 @@ ts.gold.d <- decompose(ts.gold)
 plot(ts.gold.d)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-8-1.png)
 
 ``` r
 ts.gold.holt <- HoltWinters(ts.gold, gamma=TRUE)
 plot(ts.gold.holt, ylab="Gold Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-8-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-8-2.png)
 
 ``` r
 ts.gold.forecasts <- forecast.HoltWinters(ts.gold.holt, h=14)  
@@ -516,21 +516,21 @@ We plot the forecast of gold by usinn the `plot.forecast` function:
 plot.forecast(ts.gold.forecasts, ylab="Gold Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-9-1.png)
 
 ``` r
 ts.oil.d <- decompose(ts.oil)
 plot(ts.oil.d)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ``` r
 ts.oil.holt <- HoltWinters(ts.oil, gamma=TRUE)
 plot(ts.oil.holt, ylab="Oil Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-10-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-10-2.png)
 
 ``` r
 ts.oil.forecasts <- forecast.HoltWinters(ts.oil.holt, h=14)  
@@ -561,21 +561,20 @@ We plot the forecast of gold by usinn the `plot.forecast` function:
 plot.forecast(ts.oil.forecasts, ylab="Oil Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-11-1.png)
-
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-11-1.png)
 ``` r
 ts.sp.d <- decompose(ts.sp)
 plot(ts.sp.d)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-12-1.png)
 
 ``` r
 ts.sp.holt <- HoltWinters(ts.sp, gamma=TRUE)
 plot(ts.sp.holt, ylab="S&P500 Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-12-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-12-2.png)
 
 ``` r
 ts.sp.forecasts <- forecast.HoltWinters(ts.sp.holt, h=14) 
@@ -606,7 +605,7 @@ We plot the forecast of gold by usinn the `plot.forecast` function:
 plot.forecast(ts.sp.forecasts, ylab="S&P500 Values", xlab="Year")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Arima model for Gold
 ====================
@@ -654,7 +653,7 @@ gold.arima.forecasts
 plot(gold.arima.forecasts)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-14-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-14-1.png)
 
 The ??forecast errors?? are calculated as the observed values minus predicted values, for each time point. We can only calculate the forecast errors for the time period covered by our original time series, which is 1990 to 2016 for the exchange rate data. As mentioned above, one measure of the accuracy of the predictive model is the sum-of-squared-errors (SSE) for the in-sample forecast errors.
 
@@ -668,7 +667,7 @@ For example, to calculate a correlogram of the forecast errors for the values of
 acf(gold.arima.forecasts$residuals, lag.max=20)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-15-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-15-1.png)
 
 We can see from the correlogram that the autocorrelation at lag 4 and lag 9 are outside the significance bounds and lag 7 is just touching the significance bounds. To test whether there is significant evidence for non-zero correlations at lags 1-20, we can carry out a Ljung-Box test. This can be done in R using the `Box.test()` function. The maximum lag that we want to look at is specified using the ??lag?? parameter in the `Box.test()` function. For example, to test whether there are non-zero autocorrelations at lags 1-20, for the in-sample forecast errors for exchange rate data, we type:
 
@@ -690,7 +689,7 @@ To be sure that the predictive model cannot be improved upon, it is also a good 
 plot.ts(gold.arima.forecasts$residuals)            # make time plot of forecast errors
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-17-1.png)
 
 The plot shows that the in-sample forecast errors do not seem to have a constant variance over time, although the size of the fluctuations in the start of the time series may be slightly less than that at later dates.
 
@@ -701,7 +700,7 @@ gold.diff <- diff(gold.arima.forecasts$residuals, differences = 1)
 plot.ts(gold.diff)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-18-1.png)
 
 To check whether the forecast errors are normally distributed with mean zero, we can plot a histogram of the forecast errors, with an overlaid normal curve that has mean zero and the same standard deviation as the distribution of forecast errors. To do this, we can define an R function ??plotForecastErrors()??, below:
 
@@ -732,7 +731,7 @@ PlotForecastErrors <- function(forecasterrors)
 PlotForecastErrors(gold.arima.forecasts$residuals)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-19-1.png)
 
 The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
 
@@ -784,13 +783,13 @@ oil.arima.forecasts
 plot(oil.arima.forecasts)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-20-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-20-1.png)
 
 ``` r
 acf(oil.arima.forecasts$residuals, lag.max=20)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-20-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-20-2.png)
 
 ``` r
 Box.test(oil.arima.forecasts$residuals, lag=20, type="Ljung-Box")
@@ -806,20 +805,20 @@ Box.test(oil.arima.forecasts$residuals, lag=20, type="Ljung-Box")
 plot.ts(oil.arima.forecasts$residuals)            # make time plot of forecast errors
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-20-3.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-20-3.png)
 
 ``` r
 oil.diff <- diff(oil.arima.forecasts$residuals, differences = 1)
 plot.ts(oil.diff)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-20-4.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-20-4.png)
 
 ``` r
 PlotForecastErrors(oil.arima.forecasts$residuals)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-20-5.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-20-5.png)
 
 ``` r
 mean(oil.arima.forecasts$residuals)
@@ -877,13 +876,13 @@ sp.arima.forecasts
 plot(sp.arima.forecasts)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-21-1.png)
 
 ``` r
 acf(sp.arima.forecasts$residuals, lag.max=20)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-21-2.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-21-2.png)
 
 ``` r
 Box.test(sp.arima.forecasts$residuals, lag=20, type="Ljung-Box")
@@ -899,20 +898,20 @@ Box.test(sp.arima.forecasts$residuals, lag=20, type="Ljung-Box")
 plot.ts(sp.arima.forecasts$residuals)            # make time plot of forecast errors
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-21-3.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-21-3.png)
 
 ``` r
 sp.diff <- diff(sp.arima.forecasts$residuals, differences = 1)
 plot.ts(sp.diff)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-21-4.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-21-4.png)
 
 ``` r
 PlotForecastErrors(sp.arima.forecasts$residuals)
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-21-5.png)
+![](https://github.com/ushnik/Oil-vs-Gold-vs-S-P500-stocks/blob/master/figure-markdown_github/unnamed-chunk-21-5.png)
 
 The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
 

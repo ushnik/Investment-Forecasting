@@ -250,7 +250,7 @@ We then plot the price changes of Gold and Oil from 1990 until 2016
 plot.ts(ts.gold, ylab= "Values of Gold")
 ```
 
-![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](Oil_vs_Gold_vs_s_p500_files/figure-markdown_github/unnamed-chunk-3-1.png?raw=true)
 
 ``` r
 plot.ts(ts.oil, ylab= "Values of Oil")

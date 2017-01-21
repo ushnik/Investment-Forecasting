@@ -1014,3 +1014,32 @@ We also see that investing in S&P500 in January 2017 ($2181.59) would yield a pr
 We use the arima model confidnce bands as a primary variation indicator as it removes the trend and seasonal components and works with the irregular component (noise) to model the forecasts. This, I feel, is more important in investing activities since it is safer to know what the maximum loss might be, incase of irregularities.
 
 Therefore, within 80% and 95% confidence levels as mentioned above we should look to invest in Oil in January 2017 and sell our stocks in April 2017 to earn a profit of 28.8%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

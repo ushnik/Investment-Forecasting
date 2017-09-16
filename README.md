@@ -1,6 +1,6 @@
-##Predictive Modeling and Investment Analysis of Gold, Oil and S&P500 stocks
+# Predictive Modeling and Investment Analysis of Gold, Oil and S&P500 stocks
 
-####This is an analysis of 16 years of data of Oil, Gold and S&P500 stocks. The Time series forecasting model is used to predict future values based on previously observed values, and evaluate investment decisions and ROIs. 
+#### This is an analysis of 16 years of data of Oil, Gold and S&P500 stocks. The Time series forecasting model is used to predict future values based on previously observed values, and evaluate investment decisions and ROIs. 
 
 Loading data & exploration
 
